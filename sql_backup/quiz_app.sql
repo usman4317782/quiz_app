@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2026 at 01:10 PM
+-- Generation Time: Feb 14, 2026 at 01:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,17 @@ CREATE TABLE `attempt_details` (
   `user_answer_index` int(11) NOT NULL,
   `is_correct` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `attempt_details`
+--
+
+INSERT INTO `attempt_details` (`id`, `attempt_id`, `question_id`, `user_answer_index`, `is_correct`) VALUES
+(1, 1, '6', 2, 1),
+(2, 1, '7', 3, 0),
+(3, 1, '8', 3, 0),
+(4, 1, '9', 2, 0),
+(5, 1, '10', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -66,7 +77,13 @@ INSERT INTO `auth_logs` (`id`, `user_id`, `event_type`, `ip_address`, `user_agen
 (6, 2, 'Login Success', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'p3h4ptkso4bagvje3gt0nduc67', 200, 'User logged in successfully', '2026-02-14 11:26:16'),
 (7, 2, 'Logout', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'p3h4ptkso4bagvje3gt0nduc67', 200, NULL, '2026-02-14 11:34:59'),
 (8, NULL, 'Login Failure', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'p3h4ptkso4bagvje3gt0nduc67', 401, 'Invalid credentials for imran@gmail.com', '2026-02-14 11:35:05'),
-(9, 2, 'Login Success', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '9sl9c87gvdj866nh8uaccm9r0l', 200, 'User logged in successfully', '2026-02-14 11:35:12');
+(9, 2, 'Login Success', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '9sl9c87gvdj866nh8uaccm9r0l', 200, 'User logged in successfully', '2026-02-14 11:35:12'),
+(10, 2, 'Logout', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '9sl9c87gvdj866nh8uaccm9r0l', 200, NULL, '2026-02-14 12:14:48'),
+(11, NULL, 'Login Failure', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '9sl9c87gvdj866nh8uaccm9r0l', 401, 'Invalid credentials for qasim@gmail.com', '2026-02-14 12:14:55'),
+(12, 2, 'Login Success', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'gnttu2omv1kigmq8k9renn9aqj', 200, 'User logged in successfully', '2026-02-14 12:15:06'),
+(13, 2, 'Logout', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', 'gnttu2omv1kigmq8k9renn9aqj', 200, NULL, '2026-02-14 12:18:24'),
+(14, 2, 'Login Success', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '1024thsqa8nfd40kketiasthil', 200, 'User logged in successfully', '2026-02-14 12:18:33'),
+(15, 2, 'Quiz Submitted', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36 Edg/144.0.0.0', '1024thsqa8nfd40kketiasthil', 200, 'Attempt ID: 1', '2026-02-14 12:18:45');
 
 -- --------------------------------------------------------
 
@@ -84,6 +101,68 @@ CREATE TABLE `login_attempts` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `questions`
+--
+
+CREATE TABLE `questions` (
+  `id` int(11) NOT NULL,
+  `question_description` text NOT NULL,
+  `correct_answer_index` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `questions`
+--
+
+INSERT INTO `questions` (`id`, `question_description`, `correct_answer_index`) VALUES
+(6, 'What does PHP stand for?', 2),
+(7, 'Which symbol is used to access a property of an object in PHP?', 1),
+(8, 'Which of the following is NOT a valid variable name in PHP?', 2),
+(9, 'How do you start a session in PHP?', 0),
+(10, 'Which superglobal variable holds information about headers, paths, and script locations?', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `question_options`
+--
+
+CREATE TABLE `question_options` (
+  `id` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `option_text` text NOT NULL,
+  `option_index` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `question_options`
+--
+
+INSERT INTO `question_options` (`id`, `question_id`, `option_text`, `option_index`) VALUES
+(21, 6, 'Personal Home Page', 0),
+(22, 6, 'Private Home Page', 1),
+(23, 6, 'PHP: Hypertext Preprocessor', 2),
+(24, 6, 'Public Hypertext Preprocessor', 3),
+(25, 7, '.', 0),
+(26, 7, '->', 1),
+(27, 7, '::', 2),
+(28, 7, '#', 3),
+(29, 8, '$my_var', 0),
+(30, 8, '$myVar', 1),
+(31, 8, '$1myVar', 2),
+(32, 8, '$_myVar', 3),
+(33, 9, 'session_start()', 0),
+(34, 9, 'session_begin()', 1),
+(35, 9, 'start_session()', 2),
+(36, 9, 'init_session()', 3),
+(37, 10, '$_GET', 0),
+(38, 10, '$_SESSION', 1),
+(39, 10, '$_SERVER', 2),
+(40, 10, '$_GLOBALS', 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quiz_attempts`
 --
 
@@ -95,6 +174,13 @@ CREATE TABLE `quiz_attempts` (
   `total_questions` int(11) NOT NULL,
   `attempt_timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `quiz_attempts`
+--
+
+INSERT INTO `quiz_attempts` (`id`, `user_id`, `quiz_id`, `score`, `total_questions`, `attempt_timestamp`) VALUES
+(1, 2, 'default_quiz', 2, 5, '2026-02-14 12:18:45');
 
 -- --------------------------------------------------------
 
@@ -114,7 +200,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `access`, `data`, `created_at`) VALUES
-('9sl9c87gvdj866nh8uaccm9r0l', 1771070958, 'csrf_token|s:64:\"b79015b35383f18da670275e199b4cbd519d41b6466e2f00d1e0832e4e81c340\";last_activity|i:1771070958;created|i:1771068912;user_id|i:2;username|s:6:\"sajjad\";', '2026-02-14 11:35:12');
+('1024thsqa8nfd40kketiasthil', 1771072201, 'csrf_token|s:64:\"5e3b05b14087097ff865c93893446349e722720e63d91a0eef47f70880305a37\";last_activity|i:1771072201;created|i:1771071513;user_id|i:2;username|s:6:\"sajjad\";', '2026-02-14 12:18:33'),
+('ibkmc7d3o61su7decufqbmfmq0', 1771071402, 'csrf_token|s:64:\"0ab1a2a6967da526a18b7152fbb21cd0a6e7c7ca46a2bed172b90099e3b1cfbb\";last_activity|i:1771071402;created|i:1771071402;', '2026-02-14 12:16:42');
 
 -- --------------------------------------------------------
 
@@ -165,6 +252,19 @@ ALTER TABLE `login_attempts`
   ADD KEY `ip_address` (`ip_address`,`attempt_time`);
 
 --
+-- Indexes for table `questions`
+--
+ALTER TABLE `questions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `question_options`
+--
+ALTER TABLE `question_options`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
 -- Indexes for table `quiz_attempts`
 --
 ALTER TABLE `quiz_attempts`
@@ -193,25 +293,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attempt_details`
 --
 ALTER TABLE `attempt_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `auth_logs`
 --
 ALTER TABLE `auth_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `questions`
+--
+ALTER TABLE `questions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `question_options`
+--
+ALTER TABLE `question_options`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `quiz_attempts`
 --
 ALTER TABLE `quiz_attempts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -234,6 +346,12 @@ ALTER TABLE `attempt_details`
 --
 ALTER TABLE `auth_logs`
   ADD CONSTRAINT `auth_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `question_options`
+--
+ALTER TABLE `question_options`
+  ADD CONSTRAINT `question_options_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `quiz_attempts`

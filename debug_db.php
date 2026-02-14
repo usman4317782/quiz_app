@@ -52,8 +52,8 @@ echo "<h3>Loaded Credentials:</h3>";
 echo "<ul>";
 echo "<li><strong>DB_HOST:</strong> " . ($host ? htmlspecialchars($host) : "<span class='error'>Not Set</span>") . "</li>";
 echo "<li><strong>DB_NAME:</strong> " . ($dbname ? htmlspecialchars($dbname) : "<span class='error'>Not Set</span>") . "</li>";
-echo "<li><strong>DB_USER:</strong> " . ($user ? htmlspecialchars($user) : "<span class='error'>Not Set</span>") . "</li>";
-echo "<li><strong>DB_PASS:</strong> " . ($pass !== false ? "******" : "<span class='error'>Not Set</span>") . "</li>";
+echo "<li><strong>DB_USER:</strong> " . ($user ? htmlspecialchars($user) . " (Length: " . strlen($user) . ")" : "<span class='error'>Not Set</span>") . "</li>";
+echo "<li><strong>DB_PASS:</strong> " . ($pass !== false ? "****** (Length: " . strlen($pass) . ")" : "<span class='error'>Not Set</span>") . "</li>";
 echo "</ul>";
 
 // 5. Attempt Connection
@@ -71,11 +71,17 @@ if (!$host || !$dbname || !$user) {
         echo "<h2 class='error'>&#10007; FAILURE: Could not connect.</h2>";
         echo "<div style='background:#fee;border:1px solid red;padding:15px;border-radius:5px;'>";
         echo "<strong>Error Message:</strong> " . htmlspecialchars($e->getMessage()) . "<br><br>";
-        echo "<strong>Troubleshooting Tips:</strong><ul>";
-        echo "<li>If error is 'Access denied', check Username and Password.</li>";
-        echo "<li>If error is 'Unknown database', check Database Name.</li>";
-        echo "<li>If error is 'Connection refused' or 'Network is unreachable', check DB_HOST. It might not be 'localhost'. Check your hosting control panel for the correct Database Host.</li>";
-        echo "</ul></div>";
+        echo "<strong>Diagnosis:</strong> The server rejected your password for the user <strong>" . htmlspecialchars($user) . "</strong>.<br><br>";
+        echo "<strong>Possible Causes:</strong><ul>";
+        echo "<li><strong>Wrong Password:</strong> The password in <code>.env.production</code> does not match the one set in cPanel.</li>";
+        echo "<li><strong>Typo in Username:</strong> You used <code>qiuz</code> (typo?) instead of <code>quiz</code>. Check your cPanel if the user is named <code>mindtechnology_quiz_app</code>.</li>";
+        echo "<li><strong>User Not Assigned:</strong> The user exists but has not been added to the database with privileges.</li>";
+        echo "</ul>";
+        echo "<strong>How to Fix (in cPanel):</strong><ol>";
+        echo "<li>Go to <strong>MySQL Databases</strong>.</li>";
+        echo "<li>Scroll to <strong>Current Users</strong> and Change Password for <code>" . htmlspecialchars($user) . "</code> to matches <code>.env.production</code>.</li>";
+        echo "<li>Scroll to <strong>Add User to Database</strong>. Select user <code>" . htmlspecialchars($user) . "</code> and db <code>" . htmlspecialchars($dbname) . "</code>. Click Add -> All Privileges.</li>";
+        echo "</ol></div>";
     }
 }
 

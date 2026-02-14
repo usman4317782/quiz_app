@@ -71,6 +71,25 @@ if (!$host || !$dbname || !$user) {
         echo "<h2 class='error'>&#10007; FAILURE: Could not connect.</h2>";
         echo "<div style='background:#fee;border:1px solid red;padding:15px;border-radius:5px;'>";
         echo "<strong>Error Message:</strong> " . htmlspecialchars($e->getMessage()) . "<br><br>";
+        
+        // Auto-Typo Detection
+        $typoUser = str_replace('qiuz', 'quiz', $user);
+        $typoDb = str_replace('qiuz', 'quiz', $dbname);
+        
+        if ($typoUser !== $user || $typoDb !== $dbname) {
+            echo "<h3>&#128300; Auto-Diagnosis: Checking for typos...</h3>";
+            try {
+                $pdo2 = new PDO("mysql:host=$host;dbname=$typoDb;charset=utf8mb4", $typoUser, $pass);
+                echo "<p class='success' style='font-size:1.2em;font-weight:bold;'>&#10003; FOUND IT! You have a typo in your .env.production file.</p>";
+                echo "<p>Your server uses <strong>quiz</strong> (correct English), but your config file has <strong>qiuz</strong>.</p>";
+                echo "<p><strong>Correct Database:</strong> $typoDb<br><strong>Correct Username:</strong> $typoUser</p>";
+                echo "<p>Please edit <code>.env.production</code> and correct the spelling.</p>";
+                die("</div></body></html>");
+            } catch (PDOException $e2) {
+                echo "<p>Attempted 'quiz' spelling ($typoUser) but that failed too. The issue is likely the Password or User Privileges.</p>";
+            }
+        }
+
         echo "<strong>Diagnosis:</strong> The server rejected your password for the user <strong>" . htmlspecialchars($user) . "</strong>.<br><br>";
         echo "<strong>Possible Causes:</strong><ul>";
         echo "<li><strong>Wrong Password:</strong> The password in <code>.env.production</code> does not match the one set in cPanel.</li>";

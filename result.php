@@ -13,7 +13,7 @@ if (!isset($_GET['attempt_id'])) {
 }
 
 $attemptId = $_GET['attempt_id'];
-$quizManager = new QuizManager($pdo, 'quizzes.json');
+$quizManager = new QuizManager($pdo);
 $attempt = $quizManager->getAttempt($attemptId, $_SESSION['user_id']);
 
 if (!$attempt) {
@@ -35,14 +35,14 @@ include 'includes/header.php';
                     <p class="lead">Your Score</p>
                     <hr>
                     <?php
-                        $percentage = ($attempt['score'] / $attempt['total_questions']) * 100;
-                        if ($percentage >= 80) {
-                            echo '<div class="alert alert-success">Excellent! You have a great understanding.</div>';
-                        } elseif ($percentage >= 50) {
-                            echo '<div class="alert alert-warning">Good job! But there is room for improvement.</div>';
-                        } else {
-                            echo '<div class="alert alert-danger">Keep practicing! You can do better.</div>';
-                        }
+                    $percentage = ($attempt['score'] / $attempt['total_questions']) * 100;
+                    if ($percentage >= 80) {
+                        echo '<div class="alert alert-success">Excellent! You have a great understanding.</div>';
+                    } elseif ($percentage >= 50) {
+                        echo '<div class="alert alert-warning">Good job! But there is room for improvement.</div>';
+                    } else {
+                        echo '<div class="alert alert-danger">Keep practicing! You can do better.</div>';
+                    }
                     ?>
                     <a href="dashboard.php" class="btn btn-primary mt-3">Back to Dashboard</a>
                     <a href="take_quiz.php" class="btn btn-outline-secondary mt-3">Retake Quiz</a>

@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-require_once 'functions.php';
+// require_once 'functions.php';
 require_once 'includes/classes/QuizManager.php';
 
 if (!isset($_SESSION['user_id'])) {
